@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="BD_GESTPERSOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Taches">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="description" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="fichiers" Type="nvarchar" MaxLength="200" />
+          <Property Name="importance" Type="smallint" Nullable="false" />
+          <Property Name="date_saisie" Type="datetime" Nullable="false" />
+          <Property Name="utilisateur" Type="int" />
+          <Property Name="Termine" Type="bit" Nullable="false" />
+          <Property Name="date_normale" Type="datetime" />
+          <Property Name="date_prioritaire" Type="datetime" />
+          <Property Name="date_urgente" Type="datetime" />
+          <Property Name="date_faible" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Utilisateurs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="mdp" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="role" Type="smallint" Nullable="false" />
+          <Property Name="photo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_Utilisaeurs_Taches">
+          <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="0..1" />
+          <End Role="Taches" Type="Self.Taches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateurs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Taches">
+              <PropertyRef Name="utilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_GESTPERSOModelStoreContainer">
+          <EntitySet Name="Taches" EntityType="Self.Taches" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Utilisaeurs_Taches" Association="Self.FK_Utilisaeurs_Taches">
+            <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+            <End Role="Taches" EntitySet="Taches" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BD_GESTPERSOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Taches">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="description" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="fichiers" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="importance" Type="Int16" Nullable="false" />
+          <Property Name="date_saisie" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="utilisateur" Type="Int32" />
+          <Property Name="Termine" Type="Boolean" Nullable="false" />
+          <Property Name="date_normale" Type="DateTime" Precision="3" />
+          <Property Name="date_prioritaire" Type="DateTime" Precision="3" />
+          <Property Name="date_urgente" Type="DateTime" Precision="3" />
+          <Property Name="date_faible" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Utilisateurs" Relationship="Self.FK_Utilisaeurs_Taches" FromRole="Taches" ToRole="Utilisateurs" />
+        </EntityType>
+        <EntityType Name="Utilisateurs">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mdp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="role" Type="Int16" Nullable="false" />
+          <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Taches" Relationship="Self.FK_Utilisaeurs_Taches" FromRole="Utilisateurs" ToRole="Taches" />
+        </EntityType>
+        <Association Name="FK_Utilisaeurs_Taches">
+          <End Role="Utilisateurs" Type="Self.Utilisateurs" Multiplicity="0..1" />
+          <End Role="Taches" Type="Self.Taches" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utilisateurs">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Taches">
+              <PropertyRef Name="utilisateur" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BD_GESTPERSOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Taches" EntityType="Self.Taches" />
+          <EntitySet Name="Utilisateurs" EntityType="Self.Utilisateurs" />
+          <AssociationSet Name="FK_Utilisaeurs_Taches" Association="Self.FK_Utilisaeurs_Taches">
+            <End Role="Utilisateurs" EntitySet="Utilisateurs" />
+            <End Role="Taches" EntitySet="Taches" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BD_GESTPERSOModelStoreContainer" CdmEntityContainer="BD_GESTPERSOEntities">
+          <EntitySetMapping Name="Taches">
+            <EntityTypeMapping TypeName="BD_GESTPERSOModel.Taches">
+              <MappingFragment StoreEntitySet="Taches">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="fichiers" ColumnName="fichiers" />
+                <ScalarProperty Name="importance" ColumnName="importance" />
+                <ScalarProperty Name="date_saisie" ColumnName="date_saisie" />
+                <ScalarProperty Name="utilisateur" ColumnName="utilisateur" />
+                <ScalarProperty Name="Termine" ColumnName="Termine" />
+                <ScalarProperty Name="date_normale" ColumnName="date_normale" />
+                <ScalarProperty Name="date_prioritaire" ColumnName="date_prioritaire" />
+                <ScalarProperty Name="date_urgente" ColumnName="date_urgente" />
+                <ScalarProperty Name="date_faible" ColumnName="date_faible" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utilisateurs">
+            <EntityTypeMapping TypeName="BD_GESTPERSOModel.Utilisateurs">
+              <MappingFragment StoreEntitySet="Utilisateurs">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="nom" ColumnName="nom" />
+                <ScalarProperty Name="mdp" ColumnName="mdp" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="role" ColumnName="role" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
