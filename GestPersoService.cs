@@ -18,8 +18,8 @@ namespace GestPersoMail
 
    public partial class GestPersoService : ServiceBase
    {
-      public const string EMAILADMIN = "nourredinesellami@hotmail.com";  //      emailTo = "graziella.gautier@univ-tours.fr";
-
+      // public const string EMAILADMIN = "nourredinesellami@hotmail.com";  //      emailTo = "graziella.gautier@univ-tours.fr";
+      public const string EMAILADMIN = "graziella.gautier@univ-tours.fr";
       BD_GESTPERSOEntities db = new BD_GESTPERSOEntities();
       public GestPersoService()
       {
@@ -55,7 +55,7 @@ namespace GestPersoMail
 
          eventLog1.WriteEntry("In OnStart.");
          Timer timer = new Timer();
-         timer.Interval = 21600000; // 60000*60*6 = 21600000   6 heures
+         timer.Interval = 21600000; //    6 heures
          timer.Elapsed += new ElapsedEventHandler(this.OnTimer);
          timer.Start();
 
@@ -189,8 +189,6 @@ namespace GestPersoMail
                break;
          }
          return query;
-
-
       }
 
       public Utilisateurs GetUtilisateurBYId(int? ident)
@@ -201,10 +199,7 @@ namespace GestPersoMail
             Utilisateurs utilisateur = db2.Utilisateurs.Find(ident);
             return utilisateur;
          }
-
-
       }
-
 
    }
 }
